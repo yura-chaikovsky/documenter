@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		* {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+			font-family: monospace;
+		}
+
+		ol > li {
+			margin-left: 4em;
+		}
+
+		ol ul {
+			list-style: none;
+		}
+
+		section {
+			display: flex;
+			flex-flow: row nowrap;
+			justify-content: flex-start;
+			align-items: stretch;
+			height: 4em;
+			margin: 5px;
+			overflow: hidden;
+		}
+
+		section div {
+			flex: 1 0 0;
+			padding: 1em;
+		}
+
+		section div:last-child {
+			flex: 9 0 0;
+			cursor: pointer;
+		}
+
+		p {
+			white-space: nowrap;
+		}
+
+		p code {
+			color: #91a5b6;
+		}
+	</style>
+</head>
+<body>
+
+
+
+<ol>
+	<% colors.forEach(function(color) { %>
+	<li>
+		<section>
+			<div style="background: <%= color.color %>">
+
+			</div>
+			<div>
+				<%= color.color %>
+			</div>
+			<div>
+				n/a (var)
+			</div>
+			<div>
+				<%= color.rules.length %>
+			</div>
+			<div>
+				<ul>
+					<% color.rules.forEach(function(rule) { %>
+					<li>
+						<p><% rule.selectors.forEach(function(selector) { %><%= selector %><% }) %> <code><%= rule.property %>: <%= rule.value %></code></p>
+					</li>
+					<% }) %>
+				</ul>
+			</div>
+		</section>
+	</li>
+	<% }) %>
+</ol>
+
+<script>
+	var initialHeight;
+	Array.prototype.forEach.call(document.querySelectorAll("ol > li"), function (item) {
+		initialHeight = item.style.height;
+		item.querySelector('section').addEventListener("click", function () {
+			if(this.style.overflow == "visible"){
+				this.style.overflow = "hidden";
+				this.style.height = initialHeight;
+			}else{
+				this.style.height = "auto";
+				this.style.overflow = "visible";
+			}
+		});
+	});
+	document.body.addEventListener("dblclick", function () {
+		Array.prototype.forEach.call(document.querySelectorAll("ol > li section"), function (item) {
+			item.style.height = "auto";
+			item.style.overflow = "hidden";
+		});
+	});
+</script>
+</body>
+</html>

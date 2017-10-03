@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Telenor Styleguide</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<script>
+		var TN = TN || {};
+		TN.config = TN.config || {};
+
+		var sgReadyCallback = [];
+
+		window.sgReady = function(callback) {
+			window.sgReadyCallback.push(callback);
+		};
+	</script>
+
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/vs.css">
+	<link rel="stylesheet" href="css/style-guide.css">
+</head>
+
+<body>
+	<div data-component="Docs::styleguide/controller"
+		data-alias="docsControl">
+
+		<nav class="sg-main-menu"
+			data-component="Docs::styleguide/nav"
+			data-alias="docNav">
+
+			<div class="sg-logo clear">
+				<span class="icon icon-telenor color-white text-size--44 toright--small float--left"></span>
+				<span class="color-white text-light color-steel-grey">Telenor Onescreen Styleguide</span>
+			</div>
+
+			<div class="form-item form-item--search-right sg-form-item--search-right trailer--large"
+				data-component="form/search"
+				data-alias="componentSearch"
+				data-search-on-change="true">
+
+				<div class="rel">
+					<input type="search" placeholder="Search..."
+						data-component="type-watch"
+						data-element="formSearchInput"
+						data-capture-length="1" />
+
+					<button type="button" tabindex="-1" class="form-item__search-clear icon-cross circle-outline border-width-1 text-size--9"
+						data-element="clearButton"
+						data-list-clear=""></button>
+				</div>
+			</div>
+
+			<ul role="nav" class="sg-nav">
+				<% Object.keys(groups).forEach(function(group) { %>
+				<li data-component="Docs::styleguide/accordion" data-group="accordions" data-group-id="collapseSimple-<%= group %>">
+					<div class="sg-main-menu__type"
+						data-component="collapse"
+						data-alias="collapseSimple-<%= group %>">
+
+						<%= group || '' %>
+						<span class="icon icon-arrow-right"></span>
+						<span class="icon icon-arrow-down"></span>
+					</div>
+
+					<div class="collapse__target collapse--closed" data-element="collapseSimple-<%= group %>:collapseTarget">
+						<ul class="sg-nav__inner" data-element="collapseSimple-<%= group %>:collapseContent">
+							<% groups[group].forEach(function(component) { %>
+							<li>
+								<a href="#<%= component.ref %>" class="sg-main-menu__link" data-element="navLink" data-link="<%= component.link %>">
+									<%- component.name %>
+								</a>
+							</li>
+							<% }) %>
+						</ul>
+					</div>
+				</li>
+				<% }) %>
+			</ul>
+		</nav>
+
+		<section class="sg-main-content">
+			<div data-element="componentArea"></div>
+			<div class="sg-loader" data-component="loader" data-alias="docLoader"></div>
+		</section>
+	</div>
+
+	<script type="text/javascript" src="js/main.js"></script>
+</body>
+</html>

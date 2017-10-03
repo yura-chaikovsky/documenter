@@ -1,0 +1,127 @@
+<div id="<%= component.ref %>" class="trailer">
+	<% if(component.name) { %>
+	<header class="sg-section-title">
+		<h2 class="text-size--36 text-light"><%- component.name %></h2>
+	</header>
+	<% } %>
+	<div class="sg-content-section">
+		<div class="tabpanel" data-component="tab-panel">
+			<div data-component="select" data-alias="tabSelect" class="mobile-visible form-select">
+				<select data-element="tabSelect"></select><div class="form-select__opener"></div>
+			</div>
+			<nav role="navigation" class="mobile-hidden">
+				<ul class="tabpanel__list clear flex " role="tablist" data-element="list">
+					<% if(component.scss && component.scss.examples || component.js && component.js.examples) { %>
+					<li class="tabpanel__tab" role="presentation" data-element="tab" data-id="tab-ui-<%= component.$id %>">
+						<a href="#" class="tabpanel__link" role="tab" data-element="tabLink">View</a>
+					</li>
+					<% }%>
+					<% if(component.js && component.js.desc) { %>
+					<li class="tabpanel__tab" role="presentation" data-element="tab" data-id="tab-js-<%= component.$id %>">
+						<a href="#" class="tabpanel__link" role="tab" data-element="tabLink">JS</a>
+					</li>
+					<% }%>
+					<% if(component.scss && component.scss.desc) { %>
+					<li class="tabpanel__tab" role="presentation" data-element="tab" data-id="tab-css-<%= component.$id %>">
+						<a href="#" class="tabpanel__link" role="tab" data-element="tabLink">CSS</a>
+					</li>
+					<% }%>
+				</ul>
+			</nav>
+
+			<div class="leader">
+				<% if(component.scss && component.scss.examples || component.js && component.js.examples) { %>
+				<article data-id="tab-ui-<%= component.$id %>" role="ui" class="tabpanel__panel" data-element="panel">
+					<% var scssExamples = component.scss && component.scss.examples || [] %>
+					<% var jsExamples = component.js && component.js.examples || [] %>
+					<% var id = component.scss && component.scss.$id || component.js && component.js.$id %>
+					<% var mergedExamples = scssExamples.concat(jsExamples) %>
+					<% mergedExamples.forEach(function(example, index) { %>
+					<p class="leader"><%= example.name %></p>
+					<div class="box--white padding-whole">
+						<%= example.tmpl %>
+					</div>
+					<div class="collapse__target collapse--closed" data-element="component-<%= id %>-example-<%= index %>:collapseTarget">
+						<div class="sg-code" data-element="component-<%= id %>-example-<%= index %>:collapseContent">
+							<pre><code><%= example.beautified %></code></pre>
+						</div>
+					</div>
+					<div class="text--right">
+						<button class="sg-souce-button" data-component="collapse" data-alias="component-<%= id %>-example-<%= index %>" data-readmore="View source" data-readless="Hide source">
+							<span data-element="toggleText">
+								View source
+							</span>
+						</button>
+					</div>
+					<% })%>
+				</article>
+				<% }%>
+				<% if( component.js && component.js.desc) { %>
+				<article data-id="tab-js-<%= component.$id %>" role="js" class="tabpanel__panel" data-element="panel">
+					<div class="sg-note border">
+						<%= component.js.desc %>
+						<% if( component.js.options) { %>
+						<h4>Configuration parameters:</h4>
+						<dl><% Object.keys(component.js.options).forEach(function(option) { %>
+							<dt><%= option %></dt>
+							<dd><%= component.js.options[option] %></dd>
+							<% }) %>
+						</dl>
+						<% } %>
+
+						<% if( component.js.events) { %>
+						<h4>Events:</h4>
+						<dl><% Object.keys(component.js.events).forEach(function(event) { %>
+							<dt><%= event %></dt>
+							<dd><%= component.js.events[event] %></dd>
+							<% }) %>
+						</dl>
+						<% } %>
+						<% if( component.js.depends) { %>
+						<h4>depends:</h4>
+						<dl><% Object.keys(component.js.depends).forEach(function(depend) { %>
+							<dt><%= depend %></dt>
+							<dd><%= component.js.depends[depend] %></dd>
+							<% }) %>
+						</dl>
+						<% } %>
+						<% if( component.js.subscriptions) { %>
+						<h4>Listen to events:</h4>
+						<dl>
+							<% Object.keys(component.js.subscriptions).forEach(function(subscription) { %>
+							<dt><%= subscription %></dt>
+							<dd><%= component.js.subscriptions[subscription] %></dd>
+							<% }) %>
+						</dl>
+						<% } %>
+						<% if(component.js.decls) { component.js.decls.forEach(function(decl) { %>
+						<pre><code><%= decl.signature %></code></pre>
+						<%= decl.desc %>
+						<% if( component.args) { %>
+						<dl><% component.args.forEach(function(arg) { %>
+							<dt><%= arg.name %></dt>
+							<dd><%= arg.desc %></dd>
+							<% }) %>
+						</dl>
+						<% }})} %>
+					</div>
+				</article>
+				<%} %>
+				<% if(component.scss && component.scss.desc) { %>
+				<article data-id="tab-css-<%= component.$id %>" role="scss" class="tabpanel__panel" data-element="panel">
+					<div class="sg-note border">
+						<p><%= component.scss.desc %></p>
+						<dl>
+							<% if(component.scss.modifiers) { Object.keys(component.scss.modifiers).forEach(function(modifier)
+							{ %>
+							<dt><%= modifier %></dt>
+							<dd><%= component.scss.modifiers[modifier] %></dd>
+							<% })} %>
+						</dl>
+					</div>
+				</article>
+				<% } %>
+			</div>
+		</div>
+	</div>
+</div>

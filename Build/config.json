@@ -1,0 +1,24 @@
+{
+	"styleguide": {
+		"source": "../Core/{Framework,Common,Content,Selfcare,Shop}",
+		"dest": "../S/docs/",
+		"styles": "../Docs/styleguide/_css/*.css",
+		"scripts": "../Docs/styleguide/_js/*.js",
+		"subpath": {
+			"css":  "css",
+			"js":  "js",
+			"tpls": "tpls"
+		},
+		"mainFileName": "main.css",
+		"src": [
+			"./{Framework,Common,Content,Selfcare,Shop}/**/index.js",
+			"./{Framework,Common,Content,Selfcare,Shop}/**/_index.scss"
+		],
+		"icons": {
+			"src": "../Core/Framework/core/icons/*.svg",
+			"tmpl": "../Framework/core/icons/tmpl/icons.tmpl",
+			"dst": "./Framework/core/icons/[docs]",
+			"name": "icons.html"
+		}
+	}
+}

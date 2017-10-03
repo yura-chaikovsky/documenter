@@ -1,0 +1,191 @@
+/**
+name: Icons
+type: ui
+desc: >
+      *.circle-outline*: Icons with circle
+
+      *&.circle-outline--middle*: For middle size
+
+      *&.circle-outline--small*: For small size
+
+      *.border-width-1*: Outline border width, only 1px available.
+
+
+      *.circle-background*: Icons with background circle. Avilable colors:
+
+      *&.blue*
+
+      *&.green*
+
+      *&.red*
+
+      *&.yellow*
+
+      *&.gray*
+
+      *&.white*
+examples:
+  - name: Requirements for SVG icons
+    tmpl: >
+    	<ol>
+    		<li>600px x 600px canvas size</li>
+			<li>550px x 550px picture size (one side could be smaller than 550px)</li>
+			<li>Picture should be centered inside the canvas</li>
+			<li>All strokes should be converted into shapes</li>
+			<li>All overlapping shapes should be merged into one shape</li>
+			<li>Shape color should be #000000</li>
+			<li>There shouldn't be any compression for SVG file</li>
+    	</ol>
+  - name: Icons
+    tmpl:
+        include: icons.html
+  - name: Icons with circle
+    tmpl:
+        include: icons-circle.html
+  - name: Icons with background circle
+    tmpl:
+        include: icons-circle-background.html
+*/
+
+.circle-outline {
+	position: relative;
+	text-align: center;
+	box-sizing: border-box;
+	display: block;
+	width: 2em;
+	height: 2em;
+	line-height: 1;
+
+	&:before {
+		@extend %icon-absolute-center;
+	}
+
+	&:after {
+		content: "";
+		border-radius: 50%;
+		border: 0.02em;
+		border-style: solid;
+		position: absolute;
+		width: 2em;
+		height: 2em;
+		top: 0;
+		left: 0;
+		box-sizing: border-box;
+	}
+
+	&.circle-outline--small {
+		width: 1.5em;
+		height: 1.5em;
+
+		&:after {
+			width: 1.5em;
+			height: 1.5em;
+		}
+	}
+
+	&.circle-outline--middle {
+		width: 1.8em;
+		height: 1.8em;
+
+		&:after {
+			width: 1.8em;
+			height: 1.8em;
+		}
+	}
+}
+
+.border-width-1:after {
+	border-width: 1px;
+}
+
+.border-width-2:after {
+	border-width: 2px;
+}
+
+.circle-background {
+	position: relative;
+	text-align: center;
+	box-sizing: border-box;
+	display: block;
+	width: 2em;
+	height: 2em;
+	line-height: 1;
+
+	&:before {
+		@include zindex(placeholder, 4);
+		@extend %icon-absolute-center;
+	}
+
+	&:after {
+		content: "";
+		border-radius: 50%;
+		position: absolute;
+		width: 2em;
+		height: 2em;
+		top: 0;
+		left: 0;
+		box-sizing: border-box;
+	}
+
+	&.with-border:after {
+		border: 1px solid $color-silver-grey;
+	}
+
+	&.blue:after {
+		background: $color-telenor-blue;
+	}
+
+	&.green:after {
+		background: $color-telenor-green;
+	}
+
+	&.red:after {
+		background: $color-telenor-red;
+	}
+
+	&.gray:after {
+		background: $color-paper-white;
+	}
+
+	&.gray-dark:after {
+		background: $color-steel-grey;
+	}
+
+	&.silver-grey:after {
+		background: $color-silver-grey;
+	}
+
+	&.graphite-black:after {
+		background: $color-graphite-black;
+	}
+
+	&.white:after {
+		background: $color-white;
+	}
+
+	&.yellow:after {
+		background: $color-telenor-yellow;
+	}
+
+	&.yellow-light:after {
+		background: $color-yellow-light;
+	}
+
+	.icon {
+		@include zindex(placeholder, 1);
+		@extend %icon-absolute-center;
+	}
+
+	&__label {
+		@include zindex(placeholder, 1);
+		display: flex;
+		align-items: center;
+		height: 100%;
+		justify-content: center;
+		position: relative;
+	}
+}
+
+.icon-height {
+	line-height: 1;
+}
